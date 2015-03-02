@@ -9,6 +9,7 @@
 
 # import pygame
 import random
+from random import randint
 
 ################################################################################
 #                                  Classes                                     #
@@ -113,14 +114,28 @@ class Player:
 
 
 class StupidBot(Player):
+    def __init__(self, name):
+        self._name = name
+        self._move = random.choice(MOVES)
+
     def play(self):
-        self._move = Rock('Rock')
         return self._move
 
 
 class RandomBot(Player):
     def play(self):
         self._move = random.choice(MOVES)
+        return self._move
+
+
+class IterativeBot(Player):
+    def __init__(self, name):
+        self._name = name
+        self._choice = randint(0, 4)
+
+    def play(self):
+        self._move = MOVES[self._choice % 5]
+        self._choice += 1
         return self._move
 
 
@@ -153,7 +168,8 @@ MOVES = [
 
 if __name__ == '__main__':
     print HEADER
-    print Paper('Paper').compareTo(RandomBot('RandomBot').play())
+    bot = IterativeBot('IterativeBot')
+    print Paper('Paper').compareTo(bot.play())
 
 
 ################################################################################
