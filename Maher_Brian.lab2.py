@@ -77,3 +77,6 @@ class Spock(Element):
 			return 'Lizard poisons Spock', 'Lose'
 		elif element.name() == 'Paper':
 			return 'Paper disproves Spock', 'Lose'
+
+if __name__ == '__main__':
+	
