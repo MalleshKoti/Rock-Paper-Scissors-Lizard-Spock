@@ -165,6 +165,15 @@ class LastPlayBot(Player):
         return lastMove
 
 
+class MyBot(Player):
+    def __init__(self, name):
+        self._name = name
+        self._move = random.choice(MOVES)
+
+    def play(self):
+        # TODO: Do opposite of last move (something that would beat it)
+        return move
+
 class Human(Player):
     def play(self):
         print PLAYER_MOVES_STR
