@@ -139,6 +139,17 @@ class IterativeBot(Player):
         return self._move
 
 
+class LastPlayBot(Player):
+    def __init__(self, name):
+        self._name = name
+        self._move = random.choice(MOVES)
+
+    def play(self):
+        move = self._move
+        # Reset move somehow
+        return move
+
+
 ################################################################################
 #                                  Globals                                     #
 ################################################################################
