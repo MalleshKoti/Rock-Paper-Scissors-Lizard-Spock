@@ -156,9 +156,16 @@ class LastPlayBot(Player):
         self._move = random.choice(MOVES)
 
     def play(self):
-        move = self._move
-        # Reset move somehow
+        lastMove = self._move
+        # TODO: Reset lastMove somehow
         return move
+
+
+class Human(Player):
+    def play(self):
+        # TODO: Display moves
+        # TODO: Get user input
+        # TODO: Select correct move
 
 
 ################################################################################
