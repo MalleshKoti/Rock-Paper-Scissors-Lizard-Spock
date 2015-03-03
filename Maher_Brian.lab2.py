@@ -160,23 +160,27 @@ class LastPlayBot(Player):
         self._move = random.choice(MOVES)
 
     def play(self):
-        lastMove = self._move
+        # lastMove = self._move
         # TODO: Reset lastMove somehow
-        return move
+        return lastMove
 
 
 class Human(Player):
     def play(self):
-        print PLAYER_MOVES
-        # TODO: Get user input
-        # TODO: Select correct move
+        print PLAYER_MOVES_STR
+        while True:
+            choice = input(ENTER_MOVE_STR)
+            if 1 <= choice <= 5:
+                self._move = MOVES[choice]
+                return self._move
+            print INVALID_MOVE_STR
 
 
 ################################################################################
 #                                  Globals                                     #
 ################################################################################
 
-HEADER = """
+HEADER_STR = """
 ################################################################################
 #                                                                              #
 #                    Rock, Paper, Scissors, Lizard, Spock                      #
@@ -202,7 +206,8 @@ HEADER = """
 ################################################################################
 """
 
-PLAYER_MOVES = """
+PLAYER_MOVES_STR = """
+################################################################################
 #                                                                              #
 # (1) : Rock                                                                   #
 # (2) : Paper                                                                  #
@@ -211,7 +216,17 @@ PLAYER_MOVES = """
 # (5) : Spock                                                                  #
 #                                                                              #
 ################################################################################
-# Enter you move: """
+"""
+
+ENTER_MOVE_STR = '#                              Enter your move: '
+
+INVALID_MOVE_STR = """
+################################################################################
+#                                                                              #
+# Invalid move. Please try again.                                              #
+#                                                                              #
+################################################################################
+"""
 
 MOVES = [
     Rock('Rock'),
@@ -226,9 +241,10 @@ MOVES = [
 ################################################################################
 
 if __name__ == '__main__':
-    print HEADER
+    print HEADER_STR
     bot = IterativeBot('IterativeBot')
-    print Paper('Paper').compareTo(bot.play())
+    human = Human('Human')
+    human.play()
 
 
 ################################################################################
