@@ -121,6 +121,9 @@ MOVES = [
     Spock('Spock')
 ]
 
+player1LastPlay = ''
+player2LastPlay = ''
+
 
 ################################################################################
 # Players                                                                      #
@@ -167,21 +170,40 @@ class LastPlayBot(Player):
     def __init__(self, name):
         self._name = name
         self._move = random.choice(MOVES)
+        self._firstMove = True
 
     def play(self):
-        # lastMove = self._move
-        # TODO: Reset lastMove somehow
-        return lastMove
+        myLastMove = self._move
+        if self._firstMove:
+            self._firstMove = False
+            return self._move
+        if myLastMove != player1LastPlay:
+            return player1LastPlay
+        else:
+            return player2LastPlay
 
 
 class MyBot(Player):
     def __init__(self, name):
         self._name = name
         self._move = random.choice(MOVES)
+        self._cheatMoves = {
+            'Scissors': Spock('Spock'),
+            'Paper': Scissors('Scissors'),
+            'Rock': Paper('Paper'),
+            'Lizard': Rock('Rock'),
+            'Spock': Lizard('Lizard')
+        }
 
     def play(self):
-        # TODO: Do opposite of last move (something that would beat it)
-        return move
+        # Temporarily returns a random move
+        self._move = random.choice(MOVES)
+        return self._move
+
+    def cheat(self, move):
+        self._move = move
+        return self._cheatMoves[self._move.name()]
+
 
 class Human(Player):
     def play(self):
@@ -189,14 +211,23 @@ class Human(Player):
         while True:
             choice = input(ENTER_MOVE_STR)
 
-            if 1 <= choice <= 5:
-                self._move = MOVES[choice - 1]
+            if 1 <= int(choice) <= 5:
+                self._move = MOVES[int(choice) - 1]
                 return self._move
 
             print (INVALID_MOVE_STR)
 
 
-PLAYERS = [
+PLAYERS1 = [
+    Human('Human'),
+    StupidBot('StupidBot'),
+    RandomBot('RandomBot'),
+    IterativeBot('IterativeBot'),
+    LastPlayBot('LastPlayBot'),
+    MyBot('MyBot')
+]
+
+PLAYERS2 = [
     Human('Human'),
     StupidBot('StupidBot'),
     RandomBot('RandomBot'),
@@ -252,7 +283,7 @@ SELECT_PLAYER_2_STR = '#                              Select player 2: '
 INVALID_PLAYER_STR = """
 ################################################################################
 #                                                                              #
-# Invalid player. Please try again.                                              #
+# Invalid player. Please try again.                                            #
 #                                                                              #
 ################################################################################
 """
@@ -289,26 +320,41 @@ if __name__ == '__main__':
     while True:
         choice1 = input(SELECT_PLAYER_1_STR)
         choice2 = input(SELECT_PLAYER_2_STR)
-
-        if 1 <= int(choice1) <= 5 and 1 <= int(choice2) <= 5:
+        if 1 <= int(choice1) <= 6 and 1 <= int(choice2) <= 6:
             break
-
         print (INVALID_PLAYER_STR)
 
-    player1 = PLAYERS[int(choice1) - 1]
-    player2 = PLAYERS[int(choice2) - 1]
+    player1 = PLAYERS1[int(choice1) - 1]
+    player2 = PLAYERS2[int(choice2) - 1]
 
     print (player1.name() + ' vs ' + player2.name() + '. Go!')
 
-    for i in range(1, 5):
+    p1Win = 0
+    p2Win = 0
+
+    for i in range(1, 6):
         print ('Round ' + str(i) + ':')
         player1Play = player1.play()
+        player1LastPlay = player1Play
         player2Play = player2.play()
+        player2LastPlay = player2Play
         print ('Player 1 chose ' + player1Play.name())
         print ('Player 2 chose ' + player2Play.name())
+        if player1.name() == 'MyBot':
+            player1Play = player1.cheat(player2Play)
+            player1LastPlay = player1Play
+        if player2.name() == 'MyBot':
+            player2Play = player2.cheat(player1Play)
+            player2LastPlay = player2Play
         roundResult = player1Play.compareTo(player2Play)
         print (roundResult[0])
-        # if roundResult[1] == 'Win':
+        if roundResult[1] == 'Win':
+            p1Win += 1
+        elif roundResult[1] == 'Lose':
+            p2Win += 1
+
+    print('The score is ' + str(p1Win) + ' to ' + str(p2Win))
+
 
 ################################################################################
 #                                    EOF                                       #
