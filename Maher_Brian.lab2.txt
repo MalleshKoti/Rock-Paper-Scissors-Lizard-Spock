@@ -1,0 +1,106 @@
+Brian Maher
+SID: -02195195
+
+Lab Questions
+
+Question 1: Describe your Player LastPlayBot. How did you implement this strategy?
+    -> Initially I was considering traversing backwards through the stack in order
+    to get the last player's move (without needing to pass it in to play()), however
+    I learned from various Python forums that this is not a good way to implement
+    something as it relies too heavily on the stack being in a specific order. So
+    my final implementation included global variables for each player's last move.
+    The LastPlayBot would compare their move to both last moves (in order to determine
+    whether they were player1 or player2) and then return the other player's last
+    move.
+
+Question 2: Describe your Player MyBot, explaining the strategy you employed and
+how you accomplished it.
+    -> By cheating! Simply put, after making a random move (MyBot doesn't care about
+    which move he makes first) he cheats. MyBot contains a dictionary of opponent moves
+    as keys and winning moves as values. So after both players make their moves, MyBot
+    looks at the opponents move and changes his move to the winning move before both
+    players get a chance to play.
+
+Question 3: Using the course notes and any web resources of your choosing, explain
+the type system of Python, giving attention to the concepts of binding time, dynamic vs.
+static typing, strong vs. weak typing, and user-defined types (classes). Cite any sources
+you used other than class discussion or the textbook.
+    -> By my understanding of what I have learned in Programming Languages lecture
+    so far this semester, I believe Python to be dynamically typed (with some exceptions),
+    staticly bound.
+    Typing:
+        While Python does not require any type to be defined when a variable is
+        created and a variable can be easily reassigned, Python3 requires a type
+        cast in order to use a variable that's already defined as a different type.
+        Python2 was significantly weaker in typing and much more flexible (sometimes
+        confusing) because it would make vast assumptions about the way it thinks
+        you are using the type. It will easily allow adding a string and an integer
+        and may not lead you to the answer you expect, Python3 allows the same flexibilty
+        but requiring the programmer to specify the type in front of the variable
+        when casting to ensure the programmer understands how the variable type will
+        be interpreted.
+    Binding:
+        Variables and objects are bound at definition. If an object contains a
+        reference to a global variable, that reference will not change just because
+        a class instance is created with the same variable name nesting in the same
+        scope. Python does of course look in the most recent scope for variable names
+        but not when dealing with class definitions and global variables.
+    Classes:
+        Python treats classes as it treats any other type. It allows for inheritance and
+        polymorphism to extend classes to fit a desired use and allows for child classes
+        to be created on parent class variables that inherit the same methods. Python
+        supports all standard object oriented methods and concepts. 
+        (https://docs.python.org/2/tutorial/classes.html)
+
+Question 4: Play a number of games, selecting your various players. Do you notice
+any trends? Are you, as the Human Player, able to beat any of the Bots on a consistent
+basis?
+    -> Obviously the StupidBot, LastPlayBot, and IterativeBot are predictable, so 
+    after an initial random move, I can beat them every time since I know and designed
+    the algorithms for them. The random bot is unpredictable, so I win 50% of the time
+    as would be expected, and MyBot cheats, so I cannot defeat him.
+
+Question 5: Read the wikipedia entry on Normal Form Games (http://en.
+wikipedia.org/wiki/Normal-form_game). Also, review the wikipedia page http:
+//en.wikipedia.org/wiki/Rock-paper-scissors-lizard-Spock. Is it possible to design
+a Player strategy that is more likely succeed? Why or why not? Explain in a
+paragraph. It is possible to answer this question even if you did not finish the Lab.
+The following questions are for feedback and evaluation purposes. Points are awarded
+for any sincere answer.
+    -> Given that each move beats and is beaten by two other moves, the sum of each move
+    is zero (Making it a zero sum game) and therefore undecidable. There is no
+    algorithm that can solve a zero sum game, every move has an equal chance of winning
+    or losing. The only opportunity for improvement would be to play against a human player
+    and learn how that player chooses moves (people are biased and bad at selecting truly
+    random moves) so a pattern may appear and in this case it is possible for an algorithm
+    to be designed to beat a specific human player, but never against a random opponent
+    or another maximizer minimizer opponent.
+
+Question 6: Name something you like about Python. Explain.
+    -> Python is so easy to write and the syntax is so simple that I can rapidly
+    prototype a project without worrying too much about whether or not it will compile.
+    Also, "import 'everything'".. I noticed a lot on the internet that there's a Python
+    import for just about anything.
+
+Question 7: Name something you dislike about Python. Explain.
+    -> I began writing my lab in Python 2.7 with the ambitious assumption that I would
+    be able to accomplish the GUI portion on my own. Eventually I switched to Python 3.4
+    and was surprised to see how different Python 3.x was from 2.x. I don't like vast
+    changes like this in programming languages as it can lead to lots of confusion
+    when searching online for help and resources.
+
+Question 8: Did you enjoy this lab? Which aspects did you like and/or dislike?
+    -> I did enjoy this lab, I liked having experience with Python and given the time
+    would like to implement the pygame module in order to get some experience with
+    Python as a game development language. I liked the gamification, I enjoy writing
+    video games as a programmer and this really helped me get into the assignment.
+
+Question 9: Approximately how many hours did you spend on this lab?
+    -> I would estimate six (6) total hours spent on this assignment, but much of that
+    time was spend further researching python modules and learning the language through
+    online resources.
+
+Question 10: Do you think you will use Python again? For which type(s) of project(s)?
+    -> Absolutely. I would like to use the django (www.djangoproject.org) web development
+    framework more. I used django for my senior design project, but would like to use
+    it again, now that I have more experience with Python and can switch to Python 3.
