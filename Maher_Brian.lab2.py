@@ -290,22 +290,22 @@ if __name__ == '__main__':
         choice1 = input(SELECT_PLAYER_1_STR)
         choice2 = input(SELECT_PLAYER_2_STR)
 
-        if 1 <= choice1 <= 5 and 1 <= choice2 <= 5:
+        if 1 <= int(choice1) <= 5 and 1 <= int(choice2) <= 5:
             break
 
         print (INVALID_PLAYER_STR)
 
-    player1 = PLAYERS[choice1 - 1]
-    player2 = PLAYERS[choice2 - 1]
+    player1 = PLAYERS[int(choice1) - 1]
+    player2 = PLAYERS[int(choice2) - 1]
 
     print (player1.name() + ' vs ' + player2.name() + '. Go!')
 
     for i in range(1, 5):
-        print ('Round ' + i + ':')
+        print ('Round ' + str(i) + ':')
         player1Play = player1.play()
         player2Play = player2.play()
-        print ('Player 1 chose ' + player1Play)
-        print ('Player 2 chose ' + player2Play)
+        print ('Player 1 chose ' + player1Play.name())
+        print ('Player 2 chose ' + player2Play.name())
         roundResult = player1Play.compareTo(player2Play)
         print (roundResult[0])
         # if roundResult[1] == 'Win':
