@@ -179,9 +179,11 @@ class Human(Player):
         print PLAYER_MOVES_STR
         while True:
             choice = input(ENTER_MOVE_STR)
+
             if 1 <= choice <= 5:
-                self._move = MOVES[choice]
+                self._move = MOVES[choice - 1]
                 return self._move
+
             print INVALID_MOVE_STR
 
 
@@ -213,7 +215,37 @@ HEADER_STR = """
 # Author: Brian Maher                                                          #
 #                                                                              #
 ################################################################################
+#                                                                              #
+# Please choose two players:                                                   #
+#       (1) Human                                                              #
+#       (2) StupidBot                                                          #
+#       (3) RandomBot                                                          #
+#       (4) IterativeBot                                                       #
+#       (5) LastPlayBot                                                        #
+#       (6) MyBot                                                              #
+#                                                                              #
+################################################################################
 """
+
+SELECT_PLAYER_1_STR = '#                              Select player 1: '
+SELECT_PLAYER_2_STR = '#                              Select player 2: '
+
+INVALID_PLAYER_STR = """
+################################################################################
+#                                                                              #
+# Invalid player. Please try again.                                              #
+#                                                                              #
+################################################################################
+"""
+
+PLAYERS = [
+    Human('Human'),
+    StupidBot('StupidBot'),
+    RandomBot('RandomBot'),
+    IterativeBot('IterativeBot'),
+    LastPlayBot('LastPlayBot'),
+    MyBot('MyBot')
+]
 
 PLAYER_MOVES_STR = """
 ################################################################################
@@ -251,9 +283,30 @@ MOVES = [
 
 if __name__ == '__main__':
     print HEADER_STR
-    bot = IterativeBot('IterativeBot')
-    human = Human('Human')
-    human.play()
+    
+    while True:
+        choice1 = input(SELECT_PLAYER_1_STR)
+        choice2 = input(SELECT_PLAYER_2_STR)
+
+        if 1 <= choice1 <= 5 and 1 <= choice2 <= 5:
+            break
+
+        print INVALID_PLAYER_STR
+
+    player1 = PLAYERS[choice1 - 1]
+    player2 = PLAYERS[choice2 - 1]
+
+    print player1.name() + ' vs ' player2.name() + '. Go!'
+
+    for i in range(1, 5):
+        print 'Round ' + i + ':'
+        player1Play = player1.play()
+        player2Play = player2.play()
+        print 'Player 1 chose ' + player1Play
+        print 'Player 2 chose ' + player2Play
+        roundResult = player1Play.compareTo(player2Play)
+        print roundResult[0]
+        if roundResult[1] == 'Win':
 
 
 ################################################################################
