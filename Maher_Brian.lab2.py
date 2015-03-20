@@ -113,6 +113,15 @@ class Spock(Element):
             return 'Paper disproves Spock', 'Lose'
 
 
+MOVES = [
+    Rock('Rock'),
+    Paper('Paper'),
+    Scissors('Scissors'),
+    Lizard('Lizard'),
+    Spock('Spock')
+]
+
+
 ################################################################################
 # Players                                                                      #
 ################################################################################
@@ -176,7 +185,7 @@ class MyBot(Player):
 
 class Human(Player):
     def play(self):
-        print PLAYER_MOVES_STR
+        print (PLAYER_MOVES_STR)
         while True:
             choice = input(ENTER_MOVE_STR)
 
@@ -184,11 +193,21 @@ class Human(Player):
                 self._move = MOVES[choice - 1]
                 return self._move
 
-            print INVALID_MOVE_STR
+            print (INVALID_MOVE_STR)
+
+
+PLAYERS = [
+    Human('Human'),
+    StupidBot('StupidBot'),
+    RandomBot('RandomBot'),
+    IterativeBot('IterativeBot'),
+    LastPlayBot('LastPlayBot'),
+    MyBot('MyBot')
+]
 
 
 ################################################################################
-#                                  Globals                                     #
+#                               CONST STRINGS                                  #
 ################################################################################
 
 HEADER_STR = """
@@ -238,15 +257,6 @@ INVALID_PLAYER_STR = """
 ################################################################################
 """
 
-PLAYERS = [
-    Human('Human'),
-    StupidBot('StupidBot'),
-    RandomBot('RandomBot'),
-    IterativeBot('IterativeBot'),
-    LastPlayBot('LastPlayBot'),
-    MyBot('MyBot')
-]
-
 PLAYER_MOVES_STR = """
 ################################################################################
 #                                                                              #
@@ -269,20 +279,12 @@ INVALID_MOVE_STR = """
 ################################################################################
 """
 
-MOVES = [
-    Rock('Rock'),
-    Paper('Paper'),
-    Scissors('Scissors'),
-    Lizard('Lizard'),
-    Spock('Spock')
-]
-
 ################################################################################
 #                                    Main                                      #
 ################################################################################
 
 if __name__ == '__main__':
-    print HEADER_STR
+    print (HEADER_STR)
     
     while True:
         choice1 = input(SELECT_PLAYER_1_STR)
@@ -291,23 +293,22 @@ if __name__ == '__main__':
         if 1 <= choice1 <= 5 and 1 <= choice2 <= 5:
             break
 
-        print INVALID_PLAYER_STR
+        print (INVALID_PLAYER_STR)
 
     player1 = PLAYERS[choice1 - 1]
     player2 = PLAYERS[choice2 - 1]
 
-    print player1.name() + ' vs ' player2.name() + '. Go!'
+    print (player1.name() + ' vs ' + player2.name() + '. Go!')
 
     for i in range(1, 5):
-        print 'Round ' + i + ':'
+        print ('Round ' + i + ':')
         player1Play = player1.play()
         player2Play = player2.play()
-        print 'Player 1 chose ' + player1Play
-        print 'Player 2 chose ' + player2Play
+        print ('Player 1 chose ' + player1Play)
+        print ('Player 2 chose ' + player2Play)
         roundResult = player1Play.compareTo(player2Play)
-        print roundResult[0]
-        if roundResult[1] == 'Win':
-
+        print (roundResult[0])
+        # if roundResult[1] == 'Win':
 
 ################################################################################
 #                                    EOF                                       #
